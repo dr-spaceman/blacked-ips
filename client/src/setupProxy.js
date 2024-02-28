@@ -1,8 +1,10 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function(app) {
-  app.use(createProxyMiddleware('/v1', {
-    target: 'https://server-blackedips.bunnyenv.com',
-    changeOrigin: true,
-  }));
+module.exports = function (app) {
+  app.use(
+    createProxyMiddleware("/v1", {
+      target: "https://server-nal4t3.bunnyenv.com",
+      changeOrigin: true,
+    })
+  );
 };

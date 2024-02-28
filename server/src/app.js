@@ -63,21 +63,23 @@ var corsOptions = {
 app.use(cors(corsOptions));
 */
 
-var allowedOrigins = ['https://client-blackedips.bunnyenv.com'];
+var allowedOrigins = ['https://client-nal4t3.bunnyenv.com'];
 
-app.use(cors({
+app.use(
+  cors({
     origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg = 'CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
     },
     credentials: true,
-}));
+  })
+);
 
 // jwt authentication
 app.use(passport.initialize());
@@ -96,7 +98,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // v1 api routes
 app.use('/v1', routes);
 
@@ -111,13 +112,12 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-
 //const testService = require('./services/pangea.service');
 //testService.checkIPVPNorProxy('::ffff:208.184.157.132');
 
 if (config.env !== 'production') {
-    const testService = require('./services/test.service');
-    testService.test();
+  const testService = require('./services/test.service');
+  testService.test();
 }
 
 module.exports = app;
